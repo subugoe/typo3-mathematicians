@@ -45,15 +45,14 @@ class tx_mathematicians_pi1 extends tslib_pibase {
 	 * @param	array		$conf: The PlugIn configuration
 	 * @return	The content that is displayed on the website
 	 */
-	function main($content,$conf)	{
+	function main($content,$conf) {
 		$this->conf=$conf;
 		$this->pi_setPiVarDefaults();
 		$this->pi_loadLL();
 	
 		//init
 		
-	
-	//	$GLOBALS['TSFE']->additionalHeaderData[100] = '<script type="text/javascript" src="fileadmin/js/jcarousel/lib/jquery-1.2.3.pack.js"></script>';
+		//init
 		$GLOBALS['TSFE']->additionalHeaderData[101] = '<script type="text/javascript" src="fileadmin/js/jcarousel/lib/jquery.jcarousel.js"></script>';
 		$GLOBALS['TSFE']->additionalHeaderData[102] = '<script type="text/javascript" src="fileadmin/js/maths.js"></script>';
                 $GLOBALS['TSFE']->additionalHeaderData[103] = '<link rel="stylesheet" href="fileadmin/js/jcarousel//lib/jquery.jcarousel.css" />';
@@ -61,42 +60,38 @@ class tx_mathematicians_pi1 extends tslib_pibase {
 		
 		$lang = $GLOBALS["TSFE"]->sys_language_uid;
 		if ($lang == 1){
-                $this->templateCode = $this->cObj->fileResource("EXT:mathematicians/pi1/template_en.htm");	
+			$this->templateCode = $this->cObj->fileResource("EXT:mathematicians/pi1/template_en.htm");
 		}
 		else {
-
-		$this->templateCode = $this->cObj->fileResource("EXT:mathematicians/pi1/template.htm");
+			$this->templateCode = $this->cObj->fileResource("EXT:mathematicians/pi1/template.htm");
 		}
 		$template = array();
-                $markerArray = array();
+        $markerArray = array();
 		$markerArray["###LANG###"] = $lang;
-                $markerArray["###OWLOGO###"] = 'fileadmin/images/ow-logo.gif';
-                $markerArray['###GENLOGO###']= 'fileadmin/images/gen-logo.gif';
-                //for later use
+        $markerArray["###OWLOGO###"] = 'fileadmin/images/ow-logo.gif';
+        $markerArray['###GENLOGO###']= 'fileadmin/images/gen-logo.gif';
+        //for later use
 		//$markerArray["###MACTUTLOGO###"] = 'fileadmin/images/MTl-logo.gif';
 
 		$content = '';
 		//generate search form
-                if (isset($_POST['person'])) {
+        if (isset($_POST['person'])) {
+			$person = $_POST['person'];
+			$templateMarker = "###TEMPLATE_RESULT###";
+            $template = $this->cObj->getSubpart($this->templateCode, $templateMarker);
+			$markerArray["###SEARCHTERM###"] = $person;
+			//search OW
+			$markerArray["###OWRESULT###"]= ow_search($person);
+			//search Genealogy
+			$markerArray["###GENRESULT###"]= gen_search($person);
 
-		$person = $_POST['person'];
-
-		$templateMarker = "###TEMPLATE_RESULT###";
-                $template = $this->cObj->getSubpart($this->templateCode, $templateMarker);
-
-		$markerArray["###SEARCHTERM###"] = $person;
-		//search OW
-		$markerArray["###OWRESULT###"]= ow_search($person);
-		//search Genealogy
-		$markerArray["###GENRESULT###"]= gen_search($person);
-
-		//for later use:search MacTutor
-		//$markerArray["###MACTUTRESULT###"]= mactut_search($person);
-                }
-                else {
-		//write intro text
-		$templateMarker = "###TEMPLATE###";
-		$template = $this->cObj->getSubpart($this->templateCode, $templateMarker);
+			//for later use:search MacTutor
+			//$markerArray["###MACTUTRESULT###"]= mactut_search($person);
+        }
+        else {
+			//write intro text
+			$templateMarker = "###TEMPLATE###";
+			$template = $this->cObj->getSubpart($this->templateCode, $templateMarker);
 		}
 		$content .= $this->cObj->substituteMarkerArrayCached($template, array(), $markerArray , array());
 		return $this->pi_wrapInBaseClass($content);
@@ -111,7 +106,6 @@ class tx_mathematicians_pi1 extends tslib_pibase {
 */
 
 function ow_search($term) {
-
 $owBaseURL = 'http://owpdb.mfo.de';
 $owURL = $owBaseURL . '/vifa_search';
 $owSearchParam = 'term=';
@@ -120,11 +114,10 @@ $owSearchURL = $owBaseURL . '/search?' . $owSearchParam;
 
 $xml = simplexml_load_file($owURL. '?'. $owSearchParam . $term);
 $count = count($xml->result);
-$result = '';
 $showcount = 0;
 
 $images = '';
-  if ($count > 0) {
+if ($count > 0) {
 
         while (($showcount < $count) and ($showcount < 7)) {
                 $img = $owBaseURL . (string)$xml->result[$showcount]->thumbnail;
