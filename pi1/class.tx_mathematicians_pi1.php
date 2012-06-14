@@ -49,8 +49,7 @@ class tx_mathematicians_pi1 extends tslib_pibase {
 		$this->conf=$conf;
 		$this->pi_setPiVarDefaults();
 		$this->pi_loadLL();
-	
-		//init
+		$this->pi_USER_INT_obj = 1;
 		
 		//init
 		$GLOBALS['TSFE']->additionalHeaderData[101] = '<script type="text/javascript" src="fileadmin/js/jcarousel/lib/jquery.jcarousel.js"></script>';
