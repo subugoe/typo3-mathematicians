@@ -1,5 +1,8 @@
 (add new changes on top of this file)
 
-10-06-29 muehlhoelzer  <mmuehlh@sub.uni-goettingen.de>
+2012-06-14 Sven-S. Porst <porst@sub.uni-goettingen.de>
+	* prevent caching more aggressively: the extension was not properly called in TYPO3 4.7.
+
+2010-06-29 muehlhoelzer  <mmuehlh@sub.uni-goettingen.de>
 
 	* Initial release
