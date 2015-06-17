@@ -13,19 +13,19 @@
 			<label index="submit_button_label">Suche</label>
 		</languageKey>
 		<languageKey index="de" type="array">
-                        <label index="list_mode_1">Mode 1</label>
-                        <label index="list_mode_2">Mode 2</label>
-                        <label index="list_mode_3">Mode 3</label>
-                        <label index="input_field">name</label>
-                        <label index="submit_button_label">Suche</label>
-                </languageKey>
+			<label index="list_mode_1">Mode 1</label>
+			<label index="list_mode_2">Mode 2</label>
+			<label index="list_mode_3">Mode 3</label>
+			<label index="input_field">name</label>
+			<label index="submit_button_label">Suche</label>
+		</languageKey>
 		<languageKey index="en" type="array">
-                        <label index="list_mode_1">Mode 1</label>
-                        <label index="list_mode_2">Mode 2</label>
-                        <label index="list_mode_3">Mode 3</label>
-                        <label index="input_field">name</label>
-                        <label index="submit_button_label">Search</label>
-                </languageKey>
+			<label index="list_mode_1">Mode 1</label>
+			<label index="list_mode_2">Mode 2</label>
+			<label index="list_mode_3">Mode 3</label>
+			<label index="input_field">name</label>
+			<label index="submit_button_label">Search</label>
+		</languageKey>
 	</data>
-	
+
 </T3locallang>
