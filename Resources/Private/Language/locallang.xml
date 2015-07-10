@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for extension 'mathematicians'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="pi1_title">mathematicians</label>
+			<label index="pi1_ow-intro">
+				This collection of the Mathematisches Forschungsinstitut Oberwolfach contains
+				photographs of mathematicians from all over the world. The collection is based
+				on a donation from Prof. Konrad Jacobs (Erlangen) in the 1950's and has been
+				continued by taking photos from every single group visiting Oberwolfach since
+				about 1998.
+			</label>
+			<label index="pi1_gen-intro">The intent of this project is to compile information about all the
+				mathematicians of the world. For each individual they plan to show: name of
+				the degree recipient, name of the university which awarded the (doctoral)
+				degree, year, title of dissertation and name(s) of the advisor(s).
+			</label>
+			<label index="pi_search-hint">
+				<![CDATA[<b>Searching</b>: All searches are truncated at the beginning and at the end (i.e. partial matches will work as well). For example: "<b>diec</b>" will give you at least "Tammo tom <b>Diec</b>k" and "Alexander Grothen<b>diec</b>k".]]></label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="pi1_title">mathematiker</label>
+			<label index="pi1_ow-intro">Die Fotosammlung des Mathematischen Forschungsinstitutes Oberwolfach enthält
+				Fotografien von Mathematiker weltweit. Die Sammlung baut auf einer Spende von
+				Prof. Konrad Jacobs (Erlangen) aus den 1950ern auf. Seit ca. 1998 werden
+				außerdem alle Oberwolfach besuchenden Gruppen fotografiert und so die Sammlung
+				fortgeführt.
+			</label>
+			<label index="pi1_gen-intro">Ziel dieses Projektes ist es, über jeden promovierten Mathematiker die
+				folgenden Informationen
+				zusammenzutragen:
+				Name des Mathematikers; Name der Universität, die den Doktorgrad verliehen hat; Verleihungsjahr; Titel
+				der
+				Dissertation; Betreuer.
+			</label>
+			<label index="pi_search-hint"><![CDATA[<b>Suche</b>: Die Suche ist eine vorn und hinten trunkierte Suche, z.B. mit der Eingabe
+						'<b>diec</b>' erhalten Sie mindestens 'Tammo tom <b>Diec</b>k' und 'Alexander
+						Grothen<b>diec</b>k'.]]></label>
+		</languageKey>
+	</data>
+</T3locallang>
