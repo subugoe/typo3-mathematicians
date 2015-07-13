@@ -1,46 +1,50 @@
-<f:render partial="SearchForm" />
-<div class="clear2"></div>
+<f:layout name="Main" />
+<f:section name="Main">
 
-<table>
-	<tr>
+	<f:render partial="SearchForm" />
+	<div class="clear2"></div>
 
-		<td class="collection">
-			<a href="http://owpdb.mfo.de" target="_blank">
-				<img alt="Logo: Photo Collection Oberwolfach" src="###OWLOGO###"/>
+	<table>
+		<tr>
 
-			</a>
-		</td>
-		<td class="collection">
-			Oberwolfach Photo Collection
-		</td>
-	</tr>
-</table>
+			<td class="collection">
+				<a href="http://owpdb.mfo.de" target="_blank">
+					<img alt="Logo: Photo Collection Oberwolfach" src="###OWLOGO###"/>
 
-<div id="owResult">
-	###OWRESULT###
-</div>
-<table>
-	<tr>
-		<td class="collection">
-			<a href="http://genealogy.mathematik.uni-bielefeld.de/genealogy/" target="_blank">
-				<img alt="Logo: Mathematics Genealogy Project" src="###GENLOGO###"/>
-			</a>
+				</a>
+			</td>
+			<td class="collection">
+				Oberwolfach Photo Collection
+			</td>
+		</tr>
+	</table>
 
-		</td>
-		<td class="collection">
-			Mathematics Genealogy Project
-		</td>
-	</tr>
-</table>
+	<div id="owResult">
+		###OWRESULT###
+	</div>
+	<table>
+		<tr>
+			<td class="collection">
+				<a href="http://genealogy.mathematik.uni-bielefeld.de/genealogy/" target="_blank">
+					<img alt="Logo: Mathematics Genealogy Project" src="###GENLOGO###"/>
+				</a>
 
-<div id="genResult">
-	###GENRESULT###
-</div>
+			</td>
+			<td class="collection">
+				Mathematics Genealogy Project
+			</td>
+		</tr>
+	</table>
 
-<div>
-	<p>
-		<b>Suche</b>: Die Suche ist eine vorn und hinten trunkierte Suche, z.B. mit der Eingabe
-		&apos;<b>diec</b>&apos; erhalten Sie mindestens &apos;Tammo tom <b>Diec</b>k&apos; und &apos;Alexander
-		Grothen<b>diec</b>k&apos;. </p>
+	<div id="genResult">
+		###GENRESULT###
+	</div>
 
-</div>
+	<div>
+		<p>
+			<b>Suche</b>: Die Suche ist eine vorn und hinten trunkierte Suche, z.B. mit der Eingabe
+			&apos;<b>diec</b>&apos; erhalten Sie mindestens &apos;Tammo tom <b>Diec</b>k&apos; und &apos;Alexander
+			Grothen<b>diec</b>k&apos;. </p>
+
+	</div>
+</f:section>
