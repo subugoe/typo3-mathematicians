@@ -1,9 +1,11 @@
+$margin: 1em;
+
 .mathematicians_owsearch-image {
-	margin-right: 1em;
+	margin-right: $margin;
 }
 
 .mathematicians_collection-header {
-	margin-bottom: 1em;
+	margin-bottom: $margin;
 
 	h1 {
 		display: inline-block;

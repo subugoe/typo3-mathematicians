@@ -169,8 +169,8 @@ class tx_mathematicians_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 		// send a request to example.com (referer = jonasjohn.de)
 		list($header, $content) = $this->PostRequest(
-			"http://genealogy.math.uni-bielefeld.de/genealogy/quickSearch.php",
-			"http://134.76.160.80/math",
+			'http://genealogy.math.ndsu.nodak.edu/quickSearch.php',
+			'http://134.76.160.80/math',
 			$data
 		);
 

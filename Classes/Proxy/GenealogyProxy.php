@@ -76,8 +76,8 @@ $data = array(
 
 // send a request to example.com (referer = jonasjohn.de)
 list($header, $content) = $genealogyProxy->postRequest(
-	"http://genealogy.math.uni-bielefeld.de/genealogy/quickSearch.php",
-	"http://134.76.160.80/math",
+	'http://genealogy.math.ndsu.nodak.edu/quickSearch.php',
+	'http://134.76.160.80/math',
 	$data
 );
 
