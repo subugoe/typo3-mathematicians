@@ -3,31 +3,33 @@ namespace Subugoe\Mathematicians\Proxy;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class MactutProxy {
+class MactutProxy
+{
 
-	public function main() {
-		$term = GeneralUtility::_GET('person');
+    public function main()
+    {
+        $term = GeneralUtility::_GET('person');
 
-		$term = str_replace(',', '', $term);
-		$idx = strpos($term, ' ');
-		if ($idx > 0) {
-			$term = substr($term, 0, $idx);
+        $term = str_replace(',', '', $term);
+        $idx = strpos($term, ' ');
+        if ($idx > 0) {
+            $term = substr($term, 0, $idx);
 
-		}
-		$text = file_get_contents(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mathematicans') . 'Resources/Private/Data/mactut.txt');
+        }
+        $text = file_get_contents(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mathematicans') . 'Resources/Private/Data/mactut.txt');
 
-		$return = '';
+        $return = '';
 
-		if (preg_match_all("/.*$term.*/i", $text, $matches)) {
-			foreach ($matches[0] as $hit) {
-				$return .= $hit . '<br />';
-			}
-		} else {
-			$return = 'No match found.';
-		}
+        if (preg_match_all("/.*$term.*/i", $text, $matches)) {
+            foreach ($matches[0] as $hit) {
+                $return .= $hit . '<br />';
+            }
+        } else {
+            $return = 'No match found.';
+        }
 
-		return $return;
-	}
+        return $return;
+    }
 
 }
 

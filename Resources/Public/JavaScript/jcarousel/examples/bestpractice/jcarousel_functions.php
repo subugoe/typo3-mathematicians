@@ -5,7 +5,6 @@ $jcarousel_items = array(
         'title' => 'Flower 1',
         'src' => 'http://static.flickr.com/66/199481236_dc98b5abb3_s.jpg',
     ),
-
     array(
         'title' => 'Flower 2',
         'src' => 'http://static.flickr.com/75/199481072_b4a0d09597_s.jpg',
@@ -51,9 +50,9 @@ $jcarousel_items = array(
  */
 function jcarousel_countItems()
 {
-	global $jcarousel_items;
+    global $jcarousel_items;
 
-	return count($jcarousel_items);
+    return count($jcarousel_items);
 }
 
 /**
@@ -63,20 +62,20 @@ function jcarousel_countItems()
  */
 function jcarousel_getItems($limit = null, $offset = null)
 {
-	global $jcarousel_items;
+    global $jcarousel_items;
 
-	// Copy items over
-	$return = $jcarousel_items;
+    // Copy items over
+    $return = $jcarousel_items;
 
-	if ($offset !== null) {
-		$return = array_slice($return, $offset);
-	}
+    if ($offset !== null) {
+        $return = array_slice($return, $offset);
+    }
 
-	if ($limit !== null) {
-		$return = array_slice($return, 0, $limit);
-	}
+    if ($limit !== null) {
+        $return = array_slice($return, 0, $limit);
+    }
 
-	return $return;
+    return $return;
 }
 
 ?>

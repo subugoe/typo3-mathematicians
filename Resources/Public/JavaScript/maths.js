@@ -10,10 +10,10 @@ function ow(name) {
 		data: {person: param},
 		dataType: "html",
 		timeout: 3000,
-		success: function (data) {
+		success: function(data) {
 			$(".owResult").replaceWith(data);
 		},
-		error: function (xhr, err, e) {
+		error: function(xhr, err, e) {
 			var message;
 			if (err == 'timeout') {
 				message = "Sorry, database not available."
@@ -35,11 +35,11 @@ function genealogy(name) {
 		data: {name: param},
 		dataType: "html",
 		timeout: 8000,
-		success: function (data) {
+		success: function(data) {
 			$("#genResult").html(data);
 			return;
 		},
-		error: function (xhr, err, e) {
+		error: function(xhr, err, e) {
 			var message;
 			if (err == 'timeout') {
 				message = "Sorr, database not available."
@@ -61,10 +61,10 @@ function mactut(name) {
 		data: {person: param},
 		dataType: "html",
 		timeout: 2000,
-		success: function (data) {
+		success: function(data) {
 			$('#mactutResult').html(data)
 		},
-		error: function (xhr, err, e) {
+		error: function(xhr, err, e) {
 			alert(err);
 			var message;
 			if (err == 'timeout') {
@@ -92,7 +92,7 @@ function mycarousel_itemLoadCallback(carousel, state) {
 			first: carousel.first,
 			last: carousel.last
 		},
-		function (xml) {
+		function(xml) {
 			mycarousel_itemAddCallback(carousel, carousel.first, carousel.last, xml);
 		},
 		'xml'
@@ -108,7 +108,7 @@ function mycarousel_callback(carousel, state) {
 function mycarousel_itemAddCallback(carousel, first, last, xml) {
 	// Set the size of the carousel
 	carousel.size(parseInt(jQuery('total', xml).text()));
-	jQuery('link', xml).each(function (i) {
+	jQuery('link', xml).each(function(i) {
 		carousel.add(first + i, jQuery(this).text());
 	});
 };
@@ -120,9 +120,9 @@ function mycarousel_getItemHTML(url) {
 	return '<img src="' + url + '" height="110" alt="" />';
 };
 
-jQuery(document).ready(function () {
+jQuery(document).ready(function() {
 
-	$("#simpleSearch").submit(function (event) {
+	$("#simpleSearch").submit(function(event) {
 		event.preventDefault();
 		$('#mycarousel').html('<ul class="owResult"></ul>');
 		refresh = true;
