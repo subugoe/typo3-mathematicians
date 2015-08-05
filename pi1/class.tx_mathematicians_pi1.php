@@ -96,7 +96,7 @@ class tx_mathematicians_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
     protected function addAssets()
     {
         /** @var \TYPO3\CMS\Core\Page\PageRenderer $pageRenderer */
-        $pageRenderer = $GLOBALS['TSFE']->getPageRenderer();
+        $pageRenderer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
 
         $pageRenderer->addJsFile(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('mathematicians') . 'Resources/Public/JavaScript/jcarousel/lib/jquery.jcarousel.js');
         $pageRenderer->addJsFile(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('mathematicians') . 'Resources/Public/JavaScript/maths.js');
