@@ -1,5 +1,6 @@
 var term = "";
 var refresh = false;
+var databaseNotAvailable = 'Sorry, database not available.';
 
 function ow(name) {
 	var url = "?eID=mathematicians_ow";
@@ -16,7 +17,7 @@ function ow(name) {
 		error: function(xhr, err, e) {
 			var message;
 			if (err == 'timeout') {
-				message = "Sorry, database not available."
+				message = databaseNotAvailable
 			}
 			else {
 				message = err;
@@ -42,7 +43,7 @@ function genealogy(name) {
 		error: function(xhr, err, e) {
 			var message;
 			if (err == 'timeout') {
-				message = "Sorr, database not available."
+				message = databaseNotAvailable
 			}
 			else {
 				message = err;
@@ -68,7 +69,7 @@ function mactut(name) {
 			alert(err);
 			var message;
 			if (err == 'timeout') {
-				message = "Die Datenbank ist zur Zeit leider nicht verfügbar."
+				message = databaseNotAvailable
 			}
 			else {
 				message = err;
