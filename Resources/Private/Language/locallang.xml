@@ -20,7 +20,9 @@
 				degree, year, title of dissertation and name(s) of the advisor(s).
 			</label>
 			<label index="pi_search-hint">
-				<![CDATA[<b>Searching</b>: All searches are truncated at the beginning and at the end (i.e. partial matches will work as well). For example: "<b>diec</b>" will give you at least "Tammo tom <b>Diec</b>k" and "Alexander Grothen<b>diec</b>k".]]></label>
+				<![CDATA[<b>Searching</b>: All searches are truncated at the beginning and at the end (i.e. partial matches will work as well). For example: "<b>diec</b>" will give you at least "Tammo tom <b>Diec</b>k" and "Alexander Grothen<b>diec</b>k".]]>
+			</label>
+			<label index="pi1_search">Search</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="pi1_title">mathematiker</label>
@@ -39,7 +41,9 @@
 			</label>
 			<label index="pi_search-hint"><![CDATA[<b>Suche</b>: Die Suche ist eine vorn und hinten trunkierte Suche, z.B. mit der Eingabe
 						'<b>diec</b>' erhalten Sie mindestens 'Tammo tom <b>Diec</b>k' und 'Alexander
-						Grothen<b>diec</b>k'.]]></label>
+						Grothen<b>diec</b>k'.]]>
+			</label>
+			<label index="pi1_search">Suchen</label>
 		</languageKey>
 	</data>
 </T3locallang>
