@@ -81,6 +81,7 @@ $jcarousel_size = jcarousel_countItems();
                         <img src="<?php echo htmlspecialchars($item['src']); ?>" width="75" height="75" alt="<?php echo htmlspecialchars($item['title']); ?>"/>
                     </li>
                     <?php
+
                 }
                 ?>
             </ul>

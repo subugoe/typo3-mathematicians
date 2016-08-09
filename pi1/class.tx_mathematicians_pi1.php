@@ -73,19 +73,17 @@ class tx_mathematicians_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
         $this->pi_USER_INT_obj = 1;
 
         $this->addAssets();
+        $this->view = $this->initializeTemplate();
 
         //generate search form
         if (isset($_POST['person'])) {
-            $this->view = $this->initializeTemplate();
-            $this->view->setTemplatePathAndFilename(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mathematicians') . 'Resources/Private/Templates/Search.html');
+            $this->view->setTemplate('Search');
             $person = $_POST['person'];
-
             $this->view->assign('searchTerm', $person);
             $this->view->assign('owResult', $this->ow_search($person));
             $this->view->assign('genResult', $this->gen_search($person));
         } else {
-            $this->view = $this->initializeTemplate();
-            $this->view->setTemplatePathAndFilename(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mathematicians') . 'Resources/Private/Templates/Mathematicians.html');
+            $this->view->setTemplate('Mathematicians');
         }
 
         $this->view->assign('language', $GLOBALS['TSFE']->sys_language_uid);
@@ -113,6 +111,10 @@ class tx_mathematicians_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
     {
         /** @var \TYPO3\CMS\Fluid\View\StandaloneView $template */
         $template = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Fluid\View\StandaloneView::class);
+        $template->setLayoutRootPaths([\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('EXT:mathematicians/Resources/Private/Templates/Layouts/')]);
+        $template->setTemplateRootPaths([\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mathematicians') . 'Resources/Private/Templates/']);
+        $template->setPartialRootPaths([\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mathematicians') . 'Resources/Private/Templates/Partials/']);
+
         return $template;
     }
 
@@ -136,22 +138,28 @@ class tx_mathematicians_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
 
         $images = '';
         if ($count > 0) {
-
             while (($showcount < $count) and ($showcount < 7)) {
                 $img = $owBaseURL . (string)$xml->result[$showcount]->thumbnail;
 
                 //extract person names
-                $names = "";
+                $names = '';
                 foreach ($xml->result[$showcount]->person as $name) {
-                    $names .= ($names == "") ? $name : '&' . $name;
+                    $names .= ($names == '') ? $name : '&' . $name;
                 }
                 $link = $owBaseURL . (string)$xml->result[$showcount]->detail;
 
-                $images .= '<a target="_blank" href="' . $link . '"><img  src="' . $img . '" alt="photo: ' . $names . '" title="' . $names . '" height="130"/></a>';
+                $images .= vsprintf(
+                    '<a target="_blank" href="%s"><img  src="%s" alt="photo: %s" title="%s" height="130"/></a>',
+                    [
+                        $link,
+                        $img,
+                        $names,
+                        $names
+                    ]
+                );
                 $showcount++;
             }
             if ($count > 7) {
-
                 $images .= '<a target="_blank" href="' . $owSearchURL . '">More...</a>';
             }
         } else {
@@ -168,10 +176,9 @@ class tx_mathematicians_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
      */
     protected function gen_search($term)
     {
-
-        $data = array(
+        $data = [
             'searchTerms' => $term,
-        );
+        ];
 
         // send a request to example.com (referer = jonasjohn.de)
         list($header, $content) = $this->PostRequest(
@@ -194,7 +201,6 @@ class tx_mathematicians_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
         }
 
         return $content;
-
     }
 
     /**
@@ -207,16 +213,18 @@ class tx_mathematicians_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
     {
 
         // convert variables array to string:
-        $data = array();
-        while (list($n, $v) = each($_data)) {
-            $data[] = "$n=$v";
+        $data = [];
+
+        foreach ($_data as $key => $value) {
+            $data[] = $key . '=' . $value;
         }
+
         $data = implode('&', $data);
 
         // parse the given URL
         $url = parse_url($url);
-        if ($url['scheme'] != 'http') {
-            die('Only HTTP request are supported !');
+        if ($url['scheme'] !== 'http') {
+            throw new InvalidArgumentException('Only HTTP request are supported !');
         }
 
         // extract host and path:
@@ -231,7 +239,7 @@ class tx_mathematicians_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
         fputs($fp, "Host: $host\r\n");
         fputs($fp, "Referer: $referer\r\n");
         fputs($fp, "Content-type: application/x-www-form-urlencoded\r\n");
-        fputs($fp, "Content-length: " . strlen($data) . "\r\n");
+        fputs($fp, 'Content-length: ' . strlen($data) . "\r\n");
         fputs($fp, "Connection: close\r\n\r\n");
         fputs($fp, $data);
 
@@ -251,7 +259,7 @@ class tx_mathematicians_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
         $content = isset($result[1]) ? $result[1] : '';
 
         // return as array:
-        return array($header, $content);
+        return [$header, $content];
     }
 
     /**
@@ -262,7 +270,6 @@ class tx_mathematicians_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
      */
     protected function mactut_search($term)
     {
-
         $term = str_replace(',', '', $term);
 
         $idx = strpos($term, ' ');
@@ -276,13 +283,11 @@ class tx_mathematicians_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
                 $result .= $hit . '<br />';
             }
         } else {
-            $result = "No match found.";
+            $result = 'No match found.';
         }
         return $result;
     }
-
 }
-
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mathematicians/pi1/class.tx_mathematicians_pi1.php']) {
     include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mathematicians/pi1/class.tx_mathematicians_pi1.php']);

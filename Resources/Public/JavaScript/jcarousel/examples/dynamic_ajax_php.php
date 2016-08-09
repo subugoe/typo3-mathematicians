@@ -8,7 +8,7 @@ $length = $last - $first + 1;
 
 // ---
 
-$images = array(
+$images = [
     'http://static.flickr.com/66/199481236_dc98b5abb3_s.jpg',
     'http://static.flickr.com/75/199481072_b4a0d09597_s.jpg',
     'http://static.flickr.com/57/199481087_33ae73a8de_s.jpg',
@@ -19,7 +19,7 @@ $images = array(
     'http://static.flickr.com/69/199481255_fdfe885f87_s.jpg',
     'http://static.flickr.com/60/199480111_87d4cb3e38_s.jpg',
     'http://static.flickr.com/70/229228324_08223b70fa_s.jpg',
-);
+];
 
 $total    = count($images);
 $selected = array_slice($images, $first, $length);
@@ -39,5 +39,3 @@ foreach ($selected as $img) {
 }
 
 echo '</data>';
-
-?>

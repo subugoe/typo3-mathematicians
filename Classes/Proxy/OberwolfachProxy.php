@@ -13,8 +13,7 @@ class OberwolfachProxy
         $owURL = $owBaseURL . '/vifa_search';
         $owSearchURL = 'http://owpdb.mfo.de/search?' . $owSearchParam;
 
-
-        if (isset($_GET["person"])) {
+        if (isset($_GET['person'])) {
             $params = GeneralUtility::_GET('person');
 
             $xml = simplexml_load_file($owURL . '?' . $owSearchParam . $params);
@@ -23,16 +22,15 @@ class OberwolfachProxy
             $result = '<ul id="mycarousel" class="jcarousel-skin-tango owResult">';
             $showcount = 0;
 
-            $images = array();
+            $images = [];
             if ($count > 0) {
-
                 while (($showcount < $count) and ($showcount < 7)) {
                     $img = $owBaseURL . (string)$xml->result[$showcount]->thumbnail;
 
                     //extract person names
-                    $names = "";
+                    $names = '';
                     foreach ($xml->result[$showcount]->person as $name) {
-                        $names .= ($names == "") ? $name : '&' . $name;
+                        $names .= ($names == '') ? $name : '&' . $name;
                     }
                     $link = $owBaseURL . (string)$xml->result[$showcount]->detail;
 
@@ -42,9 +40,8 @@ class OberwolfachProxy
                 if ($count > 7) {
                     $images[$showcount] = '<a class="mathematicians_owsearch-link" target="_blank" href="' . $owSearchURL . $params . '">More...</a>';
                 }
-
             } else {
-                $images[0] = "No photos found.";
+                $images[0] = 'No photos found.';
             }
         }
 
