@@ -16,10 +16,11 @@ class GenealogyProxy
     {
 
         // convert variables array to string:
-        $data = array();
-        while (list($n, $v) = each($_data)) {
-            $data[] = "$n=$v";
+        $data = [];
+        foreach ($_data as $key => $value) {
+            $data[] = $key . '=' . $value;
         }
+
         $data = implode('&', $data);
         // format --> test1=a&test2=b etc.
 
@@ -41,7 +42,7 @@ class GenealogyProxy
         fputs($fp, "Host: $host\r\n");
         fputs($fp, "Referer: $referer\r\n");
         fputs($fp, "Content-type: application/x-www-form-urlencoded\r\n");
-        fputs($fp, "Content-length: " . strlen($data) . "\r\n");
+        fputs($fp, 'Content-length: ' . strlen($data) . "\r\n");
         fputs($fp, "Connection: close\r\n\r\n");
         fputs($fp, $data);
 
@@ -61,9 +62,8 @@ class GenealogyProxy
         $content = isset($result[1]) ? $result[1] : '';
 
         // return as array:
-        return array($header, $content);
+        return [$header, $content];
     }
-
 }
 
 /** @var \Subugoe\Mathematicians\Proxy\GenealogyProxy $genealogyProxy */
@@ -72,9 +72,9 @@ $genealogyProxy = GeneralUtility::makeInstance(GenealogyProxy::class);
 // submit these variables to the server:
 $name = GeneralUtility::_GET('name');
 
-$data = array(
+$data = [
     'searchTerms' => $name,
-);
+];
 
 // send a request to example.com (referer = jonasjohn.de)
 list($header, $content) = $genealogyProxy->postRequest(
@@ -95,6 +95,5 @@ if (strpos($content, '0 records in our database') > 0) {
         '<a class="external-link" target="_blank" href="http://genealogy.math.ndsu.nodak.edu/id.php?id=',
         $content);
 }
-
 
 echo $content;

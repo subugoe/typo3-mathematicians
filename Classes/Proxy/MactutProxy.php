@@ -14,7 +14,6 @@ class MactutProxy
         $idx = strpos($term, ' ');
         if ($idx > 0) {
             $term = substr($term, 0, $idx);
-
         }
         $text = file_get_contents(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mathematicans') . 'Resources/Private/Data/mactut.txt');
 
@@ -30,7 +29,6 @@ class MactutProxy
 
         return $return;
     }
-
 }
 
 /** @var MactutProxy $proxy */

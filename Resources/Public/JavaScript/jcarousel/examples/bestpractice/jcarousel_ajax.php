@@ -15,7 +15,6 @@ $limit = $last - $first + 1;
 
 $items = jcarousel_getItems($limit, $offset);
 
-
 // ---
 
 header('Content-type: text/xml');
@@ -31,5 +30,3 @@ foreach ($items as $item) {
 }
 
 echo '</data>';
-
-?>

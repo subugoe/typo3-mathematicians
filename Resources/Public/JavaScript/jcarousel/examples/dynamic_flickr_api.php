@@ -1,6 +1,6 @@
 <?php
 
-header('Content-type: text/xml; charset: utf-'.'8');
+header('Content-type: text/xml; charset: utf-' . '8');
 //header('Cache-Control: must-revalidate');
 
 $api_key = '';
@@ -25,5 +25,3 @@ if (!empty($_REQUEST['page'])) {
 }
 
 echo file_get_contents($url);
-
-?>
