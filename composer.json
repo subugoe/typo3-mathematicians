@@ -12,6 +12,9 @@
     "autoload": {
         "classmap": [
             "pi1/"
-        ]
+        ],
+        "psr-4": {
+            "Subugoe\\Mathematicians\\": "Classes"
+        }
     }
 }
