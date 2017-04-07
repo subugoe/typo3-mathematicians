@@ -27,7 +27,6 @@
  */
 class tx_mathematicians_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
 {
-
     /**
      * @var string
      */
@@ -59,10 +58,11 @@ class tx_mathematicians_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
     protected $view;
 
     /**
-     * The main method of the PlugIn
+     * The main method of the PlugIn.
      *
      * @param string $content The PlugIn content
-     * @param array $conf The PlugIn configuration
+     * @param array  $conf    The PlugIn configuration
+     *
      * @return string The content that is displayed on the website
      */
     public function main($content, $conf)
@@ -76,12 +76,14 @@ class tx_mathematicians_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
         $this->view = $this->initializeTemplate();
 
         //generate search form
-        if (isset($_POST['person'])) {
+        if (\TYPO3\CMS\Core\Utility\GeneralUtility::_POST('person')) {
             $this->view->setTemplate('Search');
-            $person = $_POST['person'];
-            $this->view->assign('searchTerm', $person);
-            $this->view->assign('owResult', $this->ow_search($person));
-            $this->view->assign('genResult', $this->gen_search($person));
+            $person = \TYPO3\CMS\Core\Utility\GeneralUtility::_POST('person');
+            $this->view->assignMultiple([
+                'searchTerm' => $person,
+                'owResult' => $this->ow_search($person),
+                'genResult' => $this->gen_search($person),
+            ]);
         } else {
             $this->view->setTemplate('Mathematicians');
         }
@@ -96,12 +98,8 @@ class tx_mathematicians_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
         /** @var \TYPO3\CMS\Core\Page\PageRenderer $pageRenderer */
         $pageRenderer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
 
-        $pageRenderer->addJsFile(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('mathematicians') . 'Resources/Public/JavaScript/jcarousel/lib/jquery.jcarousel.js');
-        $pageRenderer->addJsFile(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('mathematicians') . 'Resources/Public/JavaScript/maths.js');
-
-        $pageRenderer->addCssFile(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('mathematicians') . 'Resources/Public/Css/Mathematicians.css');
-        $pageRenderer->addCssFile(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('mathematicians') . 'Resources/Public/JavaScript/jcarousel/lib/jquery.jcarousel.css');
-        $pageRenderer->addCssFile(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('mathematicians') . 'Resources/Public/JavaScript/jcarousel/skins/ie7/skin.css');
+        $pageRenderer->addJsFile(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('mathematicians').'Resources/Public/JavaScript/maths.js');
+        $pageRenderer->addCssFile(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('mathematicians').'Resources/Public/Css/Mathematicians.css');
     }
 
     /**
@@ -112,183 +110,55 @@ class tx_mathematicians_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
         /** @var \TYPO3\CMS\Fluid\View\StandaloneView $template */
         $template = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Fluid\View\StandaloneView::class);
         $template->setLayoutRootPaths([\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('EXT:mathematicians/Resources/Private/Templates/Layouts/')]);
-        $template->setTemplateRootPaths([\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mathematicians') . 'Resources/Private/Templates/']);
-        $template->setPartialRootPaths([\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mathematicians') . 'Resources/Private/Templates/Partials/']);
+        $template->setTemplateRootPaths([\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mathematicians').'Resources/Private/Templates/']);
+        $template->setPartialRootPaths([\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mathematicians').'Resources/Private/Templates/Partials/']);
 
         return $template;
     }
 
     /**
-     * searches in the Oberwolfach Photo Collection
+     * searches in the Oberwolfach Photo Collection.
      *
      * @param string $term : search term
+     *
      * @return string $result: result link list
      */
     protected function ow_search($term)
     {
-        $owBaseURL = 'http://owpdb.mfo.de';
-        $owURL = $owBaseURL . '/vifa_search';
-        $owSearchParam = 'term=';
+        $proxy = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\Subugoe\Mathematicians\Proxy\OberwolfachProxy::class);
 
-        $owSearchURL = $owBaseURL . '/search?' . $owSearchParam;
-
-        $xml = simplexml_load_file($owURL . '?' . $owSearchParam . $term);
-        $count = count($xml->result);
-        $showcount = 0;
-
-        $images = '';
-        if ($count > 0) {
-            while (($showcount < $count) and ($showcount < 7)) {
-                $img = $owBaseURL . (string)$xml->result[$showcount]->thumbnail;
-
-                //extract person names
-                $names = '';
-                foreach ($xml->result[$showcount]->person as $name) {
-                    $names .= ($names == '') ? $name : '&' . $name;
-                }
-                $link = $owBaseURL . (string)$xml->result[$showcount]->detail;
-
-                $images .= vsprintf(
-                    '<a target="_blank" href="%s"><img  src="%s" alt="photo: %s" title="%s" height="130"/></a>',
-                    [
-                        $link,
-                        $img,
-                        $names,
-                        $names
-                    ]
-                );
-                $showcount++;
-            }
-            if ($count > 7) {
-                $images .= '<a target="_blank" href="' . $owSearchURL . '">More...</a>';
-            }
-        } else {
-            $images = 'No photos found';
-        }
-        return $images;
+        return $proxy->search($term);
     }
 
     /**
-     * searches in the Genealogy DB Bielefeld
+     * searches in the Genealogy DB.
      *
      * @param string $term search term
+     *
      * @return string $result result link list
      */
     protected function gen_search($term)
     {
-        $data = [
-            'searchTerms' => $term,
-        ];
+        $proxy = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\Subugoe\Mathematicians\Proxy\GenealogyProxy::class);
 
-        // send a request to example.com (referer = jonasjohn.de)
-        list($header, $content) = $this->PostRequest(
-            'http://genealogy.math.ndsu.nodak.edu/quickSearch.php',
-            'http://134.76.160.80/math',
-            $data
-        );
-
-        // print the result of the whole request:
-        $start = strpos($content, '<table');
-        if (strpos($content, 'Your search has found') < 0) {
-            $content = '';
-        } else {
-            $end = strpos($content, '</table>');
-            $offset = $end - $start + 8;
-            $content = substr($content, $start, $offset);
-            $content = str_replace('<a href="id.php?id=',
-                '<a class="external-link" target="_blank" href="http://genealogy.math.ndsu.nodak.edu/id.php?id=',
-                $content);
-        }
-
-        return $content;
+        return $proxy->search($term);
     }
 
     /**
-     * @param $url
-     * @param $referer
-     * @param $_data
-     * @return array
-     */
-    protected function PostRequest($url, $referer, $_data)
-    {
-
-        // convert variables array to string:
-        $data = [];
-
-        foreach ($_data as $key => $value) {
-            $data[] = $key . '=' . $value;
-        }
-
-        $data = implode('&', $data);
-
-        // parse the given URL
-        $url = parse_url($url);
-        if ($url['scheme'] !== 'http') {
-            throw new InvalidArgumentException('Only HTTP request are supported !');
-        }
-
-        // extract host and path:
-        $host = $url['host'];
-        $path = $url['path'];
-
-        // open a socket connection on port 80
-        $fp = fsockopen($host, 80);
-
-        // send the request headers:
-        fputs($fp, "POST $path HTTP/1.1\r\n");
-        fputs($fp, "Host: $host\r\n");
-        fputs($fp, "Referer: $referer\r\n");
-        fputs($fp, "Content-type: application/x-www-form-urlencoded\r\n");
-        fputs($fp, 'Content-length: ' . strlen($data) . "\r\n");
-        fputs($fp, "Connection: close\r\n\r\n");
-        fputs($fp, $data);
-
-        $result = '';
-        while (!feof($fp)) {
-            // receive the results of the request
-            $result .= fgets($fp, 128);
-        }
-
-        // close the socket connection:
-        fclose($fp);
-
-        // split the result header from the content
-        $result = explode("\r\n\r\n", $result, 2);
-
-        $header = isset($result[0]) ? $result[0] : '';
-        $content = isset($result[1]) ? $result[1] : '';
-
-        // return as array:
-        return [$header, $content];
-    }
-
-    /**
-     * searches in the file mactut.txt for links containing the search term
+     * searches in the file mactut.txt for links containing the search term.
      *
      * @param string $term : search term
+     *
      * @return string $result: result link list
      */
     protected function mactut_search($term)
     {
-        $term = str_replace(',', '', $term);
+        $proxy = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\Subugoe\Mathematicians\Proxy\MactutProxy::class);
 
-        $idx = strpos($term, ' ');
-        if ($idx > 0) {
-            $term = substr($term, 0, $idx);
-        }
-        $text = file_get_contents(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mathematicans') . 'Resources/Private/Data/mactut.txt');
-        $result = '';
-        if (preg_match_all("/.*$term.*/i", $text, $matches)) {
-            foreach ($matches[0] as $hit) {
-                $result .= $hit . '<br />';
-            }
-        } else {
-            $result = 'No match found.';
-        }
-        return $result;
+        return $proxy->search($term);
     }
 }
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mathematicians/pi1/class.tx_mathematicians_pi1.php']) {
-    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mathematicians/pi1/class.tx_mathematicians_pi1.php']);
+    include_once $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mathematicians/pi1/class.tx_mathematicians_pi1.php'];
 }

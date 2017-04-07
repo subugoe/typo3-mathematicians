@@ -1,49 +1,39 @@
 <f:layout name="Main"/>
 <f:section name="Main">
 
-	<f:render partial="SearchForm"/>
+    <f:render partial="SearchForm"/>
 
-	<table>
-		<tr>
+    <section>
+        <header class="collection mathematicians_collection-header">
+            <f:link.external uri="http://owpdb.mfo.de" target="_blank">
+                <f:image src="EXT:mathematicians/Resources/Public/Images/ow-logo.gif" alt="Logo: Photo Collection Oberwolfach"/>
+            </f:link.external>
+            <h1>Oberwolfach Photo Collection</h1>
+        </header>
+        <article id="mycarousel" class="jcarousel-skin-ie7 owResult">
+           {owResult -> f:format.raw()}
+        </article>
+    </section>
 
-			<td class="collection">
-				<a href="http://owpdb.mfo.de" target="_blank">
-					<img alt="Logo: Photo Collection Oberwolfach" src="###OWLOGO###"/>
+    <section>
+        <header class="collection mathematicians_collection-header">
+            <f:link.external uri="http://genealogy.mathematik.uni-bielefeld.de/genealogy/" target="_blank">
+                <f:image src="EXT:mathematicians/Resources/Public/Images/gen-logo.gif" alt="Logo: Mathematics Genealogy Project"/>
+            </f:link.external>
+            <h1>Mathematics Genealogy Project</h1>
+        </header>
 
-				</a>
-			</td>
-			<td class="collection">
-				Oberwolfach Photo Collection
-			</td>
-		</tr>
-	</table>
-
-	<div id="owResult">
-		###OWRESULT###
-	</div>
-	<table>
-		<tr>
-			<td class="collection">
-				<a href="http://genealogy.mathematik.uni-bielefeld.de/genealogy/" target="_blank">
-					<img alt="Logo: Mathematics Genealogy Project" src="###GENLOGO###"/>
-				</a>
-
-			</td>
-			<td class="collection">
-				Mathematics Genealogy Project
-			</td>
-		</tr>
-	</table>
-
-	<div id="genResult">
-		###GENRESULT###
-	</div>
-
-	<div>
-		<p>
-			<b>Suche</b>: Die Suche ist eine vorn und hinten trunkierte Suche, z.B. mit der Eingabe
-			&apos;<b>diec</b>&apos; erhalten Sie mindestens &apos;Tammo tom <b>Diec</b>k&apos; und &apos;Alexander
-			Grothen<b>diec</b>k&apos;. </p>
-
-	</div>
+        <article id="genResult">
+            <p>
+                {genResult -> f:format.raw()}
+            </p>
+        </article>
+        <article>
+            <p>
+                <f:format.raw>
+                    <f:translate key="LLL:EXT:mathematicians/Resources/Private/Language/locallang.xml:pi_search-hint"/>
+                </f:format.raw>
+            </p>
+        </article>
+    </section>
 </f:section>

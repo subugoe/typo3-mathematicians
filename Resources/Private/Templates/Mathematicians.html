@@ -2,37 +2,43 @@
 
 <f:section name="Main">
 
-	<f:render partial="SearchForm"/>
+    <f:render partial="SearchForm"/>
 
-	<section>
-		<header class="collection mathematicians_collection-header">
-			<f:link.external uri="http://owpdb.mfo.de" target="_blank"><f:image src="EXT:mathematicians/Resources/Public/Images/ow-logo.gif" alt="Logo: Photo Collection Oberwolfach"/></f:link.external>
-			<h1>Oberwolfach Photo Collection</h1>
-		</header>
-		<article id="mycarousel" class="jcarousel-skin-ie7 owResult">
-			<p>
-				<f:translate key="LLL:EXT:mathematicians/Resources/Private/Language/locallang.xml:pi1_ow-intro"/>
-			</p>
-		</article>
-	</section>
+    <section>
+        <header class="collection mathematicians_collection-header">
+            <f:link.external uri="http://owpdb.mfo.de" target="_blank">
+                <f:image src="EXT:mathematicians/Resources/Public/Images/ow-logo.gif"
+                         alt="Logo: Photo Collection Oberwolfach"/>
+            </f:link.external>
+            <h1>Oberwolfach Photo Collection</h1>
+        </header>
+        <article id="mycarousel" class="jcarousel-skin-ie7 owResult">
+            <p>
+                <f:translate key="LLL:EXT:mathematicians/Resources/Private/Language/locallang.xml:pi1_ow-intro"/>
+            </p>
+        </article>
+    </section>
 
-	<section>
-		<header class="collection mathematicians_collection-header">
-			<f:link.external uri="http://genealogy.mathematik.uni-bielefeld.de/genealogy/" target="_blank"><f:image src="EXT:mathematicians/Resources/Public/Images/gen-logo.gif" alt="Logo: Mathematics Genealogy Project"/></f:link.external>
-			<h1>Mathematics Genealogy Project</h1>
-		</header>
+    <section>
+        <header class="collection mathematicians_collection-header">
+            <f:link.external uri="http://genealogy.mathematik.uni-bielefeld.de/genealogy/" target="_blank">
+                <f:image src="EXT:mathematicians/Resources/Public/Images/gen-logo.gif"
+                         alt="Logo: Mathematics Genealogy Project"/>
+            </f:link.external>
+            <h1>Mathematics Genealogy Project</h1>
+        </header>
 
-		<article id="genResult">
-			<p>
-				<f:translate key="LLL:EXT:mathematicians/Resources/Private/Language/locallang.xml:pi1_gen-intro"/>
-			</p>
-		</article>
-		<article>
-			<p>
-				<f:format.raw>
-					<f:translate key="LLL:EXT:mathematicians/Resources/Private/Language/locallang.xml:pi_search-hint"/>
-				</f:format.raw>
-			</p>
-		</article>
-	</section>
+        <article id="genResult">
+            <p>
+                <f:translate key="LLL:EXT:mathematicians/Resources/Private/Language/locallang.xml:pi1_gen-intro"/>
+            </p>
+        </article>
+        <article>
+            <p>
+                <f:format.raw>
+                    <f:translate key="LLL:EXT:mathematicians/Resources/Private/Language/locallang.xml:pi_search-hint"/>
+                </f:format.raw>
+            </p>
+        </article>
+    </section>
 </f:section>

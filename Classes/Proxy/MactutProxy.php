@@ -1,27 +1,25 @@
 <?php
+
 namespace Subugoe\Mathematicians\Proxy;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class MactutProxy
+class MactutProxy implements ProxyInterface
 {
-
-    public function main()
+    public function search($term)
     {
-        $term = GeneralUtility::_GET('person');
-
         $term = str_replace(',', '', $term);
         $idx = strpos($term, ' ');
         if ($idx > 0) {
             $term = substr($term, 0, $idx);
         }
-        $text = file_get_contents(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mathematicans') . 'Resources/Private/Data/mactut.txt');
+        $text = file_get_contents(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mathematicans').'Resources/Private/Data/mactut.txt');
 
         $return = '';
 
         if (preg_match_all("/.*$term.*/i", $text, $matches)) {
             foreach ($matches[0] as $hit) {
-                $return .= $hit . '<br />';
+                $return .= $hit.'<br />';
             }
         } else {
             $return = 'No match found.';
@@ -33,5 +31,4 @@ class MactutProxy
 
 /** @var MactutProxy $proxy */
 $proxy = GeneralUtility::makeInstance(MactutProxy::class);
-
-echo $proxy->main();
+echo $proxy->search(GeneralUtility::_GET('person'));
