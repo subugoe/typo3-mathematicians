@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Subugoe\Mathematicians\Proxy;
 
 use TYPO3\CMS\Core\Http\RequestFactory;
@@ -7,7 +9,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class GenealogyProxy implements ProxyInterface
 {
-    public function search($term)
+    public function search(string $term): string
     {
         $data = [
             'searchTerms' => $term,

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /***************************************************************
  *  Copyright notice
  *
@@ -65,7 +68,7 @@ class tx_mathematicians_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
      *
      * @return string The content that is displayed on the website
      */
-    public function main($content, $conf)
+    public function main($content, $conf): string
     {
         $this->conf = $conf;
         $this->pi_setPiVarDefaults();
@@ -81,8 +84,8 @@ class tx_mathematicians_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
             $person = \TYPO3\CMS\Core\Utility\GeneralUtility::_POST('person');
             $this->view->assignMultiple([
                 'searchTerm' => $person,
-                'owResult' => $this->ow_search($person),
-                'genResult' => $this->gen_search($person),
+                'owResult' => $this->oberwolfachSearch($person),
+                'genResult' => $this->genealogySearch($person),
             ]);
         } else {
             $this->view->setTemplate('Mathematicians');
@@ -105,7 +108,7 @@ class tx_mathematicians_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
     /**
      * @return \TYPO3\CMS\Fluid\View\StandaloneView
      */
-    protected function initializeTemplate()
+    protected function initializeTemplate(): \TYPO3\CMS\Fluid\View\StandaloneView
     {
         /** @var \TYPO3\CMS\Fluid\View\StandaloneView $template */
         $template = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Fluid\View\StandaloneView::class);
@@ -119,11 +122,11 @@ class tx_mathematicians_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
     /**
      * searches in the Oberwolfach Photo Collection.
      *
-     * @param string $term : search term
+     * @param string $term search term
      *
-     * @return string $result: result link list
+     * @return string $result result link list
      */
-    protected function ow_search($term)
+    protected function oberwolfachSearch(string $term): string
     {
         $proxy = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\Subugoe\Mathematicians\Proxy\OberwolfachProxy::class);
 
@@ -137,7 +140,7 @@ class tx_mathematicians_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
      *
      * @return string $result result link list
      */
-    protected function gen_search($term)
+    protected function genealogySearch(string $term): string
     {
         $proxy = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\Subugoe\Mathematicians\Proxy\GenealogyProxy::class);
 
@@ -147,11 +150,11 @@ class tx_mathematicians_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
     /**
      * searches in the file mactut.txt for links containing the search term.
      *
-     * @param string $term : search term
+     * @param string $term search term
      *
-     * @return string $result: result link list
+     * @return string $result result link list
      */
-    protected function mactut_search($term)
+    protected function mactut_search(string $term): string
     {
         $proxy = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\Subugoe\Mathematicians\Proxy\MactutProxy::class);
 

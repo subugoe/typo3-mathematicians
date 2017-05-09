@@ -1,19 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Subugoe\Mathematicians\Proxy;
 
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class MactutProxy implements ProxyInterface
 {
-    public function search($term)
+    public function search(string $term): string
     {
         $term = str_replace(',', '', $term);
         $idx = strpos($term, ' ');
         if ($idx > 0) {
             $term = substr($term, 0, $idx);
         }
-        $text = file_get_contents(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mathematicans').'Resources/Private/Data/mactut.txt');
+        $text = file_get_contents(ExtensionManagementUtility::extPath('mathematicans').'Resources/Private/Data/mactut.txt');
 
         $return = '';
 
