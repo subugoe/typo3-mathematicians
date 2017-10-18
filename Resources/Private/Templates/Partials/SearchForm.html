@@ -1,10 +1,7 @@
-<f:form id="simpleSearch" method="post">
-    <div class="first">
-        <br/>
-        <fieldset>
-            <input type="hidden" name="L" value="{language}"/>
-            <input class="iputStart" type="text" name="person" value="{searchTerm}"/>
-            <input class="submStart" type="submit" name="persSearch" value="<f:translate key='LLL:EXT:mathematicians/Resources/Private/Language/locallang.xml:pi1_search'/>"/>
-        </fieldset>
+<f:form id="simpleSearch" method="post" class="form-inline">
+    <div class="first form-group">
+        <input type="hidden" name="L" value="{language}"/>
+        <input class="iputStart" class="form-control" type="text" name="person" value="{searchTerm}"/>
+        <button class="submStart" type="submit" name="persSearch" value=""><f:translate key='LLL:EXT:mathematicians/Resources/Private/Language/locallang.xml:pi1_search'/></button>
     </div>
 </f:form>

@@ -3,19 +3,19 @@
 
     <f:render partial="SearchForm"/>
 
-    <section>
+    <section class="oberwolfach">
         <header class="collection mathematicians_collection-header">
             <f:link.external uri="http://owpdb.mfo.de" target="_blank">
                 <f:image src="EXT:mathematicians/Resources/Public/Images/ow-logo.gif" alt="Logo: Photo Collection Oberwolfach"/>
             </f:link.external>
             <h1>Oberwolfach Photo Collection</h1>
         </header>
-        <article id="mycarousel" class="jcarousel-skin-ie7 owResult">
+        <article id="mycarousel" class="jcarousel-skin-ie7 owResult oberwolfach-result">
            {owResult -> f:format.raw()}
         </article>
     </section>
 
-    <section>
+    <section class="genealogy">
         <header class="collection mathematicians_collection-header">
             <f:link.external uri="http://genealogy.mathematik.uni-bielefeld.de/genealogy/" target="_blank">
                 <f:image src="EXT:mathematicians/Resources/Public/Images/gen-logo.gif" alt="Logo: Mathematics Genealogy Project"/>
@@ -23,7 +23,7 @@
             <h1>Mathematics Genealogy Project</h1>
         </header>
 
-        <article id="genResult">
+        <article id="genResult" class="genealogy-result">
             <p>
                 {genResult -> f:format.raw()}
             </p>
