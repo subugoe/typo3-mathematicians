@@ -25,10 +25,10 @@ class OberwolfachProxy implements ProxyInterface
             while (($showcount < $count) and ($showcount < 7)) {
                 $img = $owBaseURL.(string) $xml->result[$showcount]->thumbnail;
 
-                    //extract person names
-                    $names = '';
+                //extract person names
+                $names = '';
                 foreach ($xml->result[$showcount]->person as $name) {
-                    $names .= ($names == '') ? $name : '&'.$name;
+                    $names .= ('' == $names) ? $name : '&'.$name;
                 }
                 $link = $owBaseURL.(string) $xml->result[$showcount]->detail;
 

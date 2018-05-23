@@ -59,7 +59,7 @@ class GenealogyProxy implements ProxyInterface
         // Return a PSR-7 compliant response object
         $response = $requestFactory->request($url, 'POST', $additionalOptions);
         // Get the content as a string on a successful request
-        if ($response->getStatusCode() === 200) {
+        if (200 === $response->getStatusCode()) {
             $content = $response->getBody()->getContents();
         }
 
