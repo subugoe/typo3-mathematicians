@@ -30,9 +30,11 @@ class GenealogyProxy implements ProxyInterface
             $end = strpos($content, '</table>');
             $offset = $end - $start + 8;
             $content = substr($content, $start, $offset);
-            $content = str_replace('<a href="id.php?id=',
+            $content = str_replace(
+                '<a href="id.php?id=',
                 '<a class="external-link" target="_blank" href="https://genealogy.math.ndsu.nodak.edu/id.php?id=',
-                $content);
+                $content
+            );
         }
 
         return $content;
