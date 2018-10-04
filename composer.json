@@ -2,7 +2,7 @@
     "name": "subugoe/mathematicians",
     "description": "TYPO3 extension for mathematicians",
     "type": "typo3-cms-extension",
-    "license": "GPL-2.0+",
+    "license": "GPL-2.0-or-later",
     "authors": [
         {
             "name": "Ingo Pfennigstorf",
@@ -18,6 +18,6 @@
         }
     },
     "require": {
-        "typo3/cms-core": "^8.7.13 || ^9.4"
+        "typo3/cms-core": "^8.7.13 || ^9.5"
     }
 }
